@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SelfPaced Crowd</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{% static '/css/fontastic.css' %}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static '/css/style.default.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static '/css/custom.css' %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static '/img/favicon2.png' %}">
+    <!-- JavaScript files-->
+    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/vendor/popper.js/umd/popper.min.js' %}"> </script>
+    <script src="{% static '/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+    <script src="{% static '/vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static '/js/charts-home.js' %}"></script>
+    <!-- Main File-->
+    <script src="{% static '/js/front.js' %}"></script>
+    <script src="{% static '/js/label.js' %}"></script>
+   
+    
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+      <div class="headerpage"></div>
+	  <script type="text/javascript">
+        $(".headerpage").load("{% url 'login:header'%}");
+
+</script>
+      <div class="page-content d-flex align-items-stretch"> 
+        <!-- Side Navbar -->
+        <nav class="side-navbar" th:fragment="navbar1">
+			<ul class="list-unstyled">
+				<li><a href="/"> <i class="icon-home"></i>全部项目  </a></li>
+				<li class="active"><a href="{% url 'login:collaborators'%}"> <i class="icon-grid"></i>成员管理 </a></li>
+				<li><a href="{% url 'dataset:datasets'%}"> <i class="fa fa-bar-chart"></i>数据中心 </a></li>
+				<li><a href="/export"> <i class="icon-padnote"></i>数据导出 </a></li>
+				<li><a href="{% url 'login:personal'%}"> <i class="icon-interface-windows"></i>个人中心 </a></li>
+			</ul>
+		</nav>
+		
+        <div class="content-inner">
+	        <h4 style="margin: 30px 30px 5px 30px;">成员管理</h4>
+	        <span style="margin: 3px 30px 20px 30px;" th:text="${userCount}"></span>
+	        
+	        
+	        <!-- 一个个项目成员 -->
+            {% for user in users %}
+	        <div class="container-fluid">
+	        	<div class="col-lg-4" style="float:left" >
+                	<div class="row member">
+                		<div>
+                			<h5 >{{user.nickname}}</h5>
+                			<span>用户名：</span><span >{{user.username}}</span><br>
+                			<span>完成任务：</span><span >{{user.finishedCount}}</span><br>
+                        	<span>积分：</span><span>{{user.point}}</span><br>
+                			<span>类型：</span><span th:text="${user.type==1?'管理员':'普通用户'}">{{user.type}}</span>
+                		</div>
+
+<!--                		<div class="member-icon" th:if="${user.username != loginUser.username}">-->
+<!--                			<img src="{% static '/img/bianji.png' %}" width="20px">-->
+<!--                			<img src="{% static '/img/shanchu.png' %}" width="20px" onclick="deleteUser({{user.id}});" style="cursor:pointer;">-->
+<!--                		</div>-->
+
+                	</div>
+                </div>
+	        </div>
+            {% endfor %}
+      </div>
+    </div>
+    </div>
+<!--  <script>-->
+<!--      function deleteUser(id){-->
+<!--       var url1 = "/deleteUser/"+ id;-->
+<!--      window.location.href=url1;-->
+<!--      }-->
+<!--  </script>-->
+  </body>
+</html>

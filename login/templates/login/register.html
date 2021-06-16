@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SelfPaced Crowd</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{% static 'css/fontastic.css' %}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'css/custom.css'%}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'img/favicon2.png'%}">
+    <script src="{% static '/js/label.js' %}"></script>
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <div class="page login-page">
+      <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>Self-paced Crowd</h1>
+                  </div>
+                  <p>基于自步学习的众包平台</p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel    -->
+            <div class="col-lg-6 bg-white">
+              <div class="form d-flex align-items-center">
+                <div class="content">
+                  <form class="form-validate" action="{% url 'login:check_register' %}" method="POST">
+                    <div class="form-group">
+                      <input type="text" id="username" name="username" class="input-material">
+                      <label for="register-username" class="label-material">User Name</label>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" id="password" name="password" class="input-material">
+                      <label for="register-email" class="label-material">Password      </label>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" id="nickname" name="nickname" class="input-material">
+                      <label for="register-password" class="label-material">Nickname        </label>
+                    </div>
+                    
+<!--                    <div class="form-group">-->
+<!--                      <a id="register" class="btn btn-primary" th:onClick="register()">Register</a>-->
+<!--              -->
+<!--                    </div>-->
+                    <button  type="submit" class="btn btn-primary">Register</button>
+                  </form><small>Already have an account? </small><a href="{% url 'login:login'%}" class="signup">Login</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights text-center">
+<!--        <p>Copyright &copy; 王梦宁    ·  屠金政</p>-->
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/popper.js/umd/popper.min.js' %}"> </script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <!-- Main File-->
+    <script src="{% static 'js/front.js' %}"></script>
+  </body>
+</html>

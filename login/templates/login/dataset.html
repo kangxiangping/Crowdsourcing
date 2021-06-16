@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{%load static%}
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SelfPaced Crowd</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/bootstrap/css/bootstrap.min.css'%}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{% static '/css/fontastic.css' %}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static '/css/style.default.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static '/css/custom.css' %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static '/img/favicon2.png' %}">
+    <!-- JavaScript files-->
+    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/vendor/popper.js/umd/popper.min.js' %}"> </script>
+    <script src="{% static '/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+    <script src="{% static '/vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static '/js/charts-home.js' %}"></script>
+    <!-- Main File-->
+    <script src="{% static '/js/front.js' %}"></script>
+    <script src="{% static '/js/label.js' %}"></script>
+
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+      <div class="headerpage"></div>
+	  <script type="text/javascript">
+        $(".headerpage").load("{% url 'login:header'%}");
+
+</script>
+      <div class="page-content d-flex align-items-stretch"> 
+        <!-- Side Navbar -->
+        <nav class="side-navbar" th:fragment="navbar1">
+			<ul class="list-unstyled">
+				<li ><a href="/"> <i class="icon-home"></i>全部项目  </a></li>
+				<li><a href="{% url 'login:collaborators'%}"> <i class="icon-grid"></i>成员管理 </a></li>
+				<li class="active"><a href="{% url 'dataset:datasets'%}"> <i class="fa fa-bar-chart"></i>数据中心 </a></li>
+				<li><a href="/export"> <i class="icon-padnote"></i>数据导出 </a></li>
+				<li><a href="{% url 'login:personal'%}"> <i class="icon-interface-windows"></i>个人中心 </a></li>
+			</ul>
+		</nav>
+		
+        <div  class="content-inner">
+             <br><br>
+            <div style="margin-left: 50px;">
+        	<form method="post" action="{% url 'dataset:createDataset' %}">
+                <input type="text" name="name" placeholder=请输入数据集名字>
+                <br><br>
+                <button class="btn btn-primary" type="submit" >新建数据集</button>
+                </form>
+            </div>
+
+	        <h4 style="margin: 30px 30px 5px 30px;">数据集</h4>
+<!--	        <span style="margin: 3px 30px 20px 30px;" th:text="${datasetCount}"></span>-->
+            <span style="margin: 3px 30px 20px 30px;" > {{ datasetCount }} </span>
+	        <!-- 一个个数据集-->
+
+<!--	        	<div class="dataset-box" th:each="dataset : ${datasets}" th:onClick="|dataDetail(${dataset.id})|">-->
+<!--                	<div>-->
+<!--                		<img th:src="${dataset.coverUrl}" width="100%" height="200px" onerror="this.src='/img/dataset/project1.jpg'">-->
+<!--                	</div>-->
+<!--                	<div style="margin-top: 15px;">-->
+<!--	                	<h5 th:text="${dataset.name}"></h5>-->
+<!--	                	<span th:text="${#dates.format(dataset.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>-->
+<!--                	</div>-->
+<!--                </div>-->
+
+                {% for dataset in datasets %}
+                    <div class="container-fluid" >
+<!--                    <div class="container-fluid" >-->
+                        <div class="dataset-box" >
+                  <div onclick="ds({{dataset.id}})">
+
+                		<img src="{% static dataset.coverUrl %}" width="100%" height="200px" onerror="this.src='{% static '/img/dataset/noDataset.jpeg' %}'">
+                	</div>
+
+                	<div style="margin-top: 15px;">
+	                	<h5 >{{dataset.name}}</h5>
+	                	<span >{{dataset.gmtCreate|date:"Y-m-d H:i:s"}}</span>
+                	</div>
+                            <div class="member-icon" >
+                			<img src="{% static '/img/shanchu.png' %}" width="20px" onclick="deleteDataset({{dataset.id}});" style="cursor:pointer;">
+                		</div>
+
+                        </div>
+
+                        </div>
+                {% endfor %}
+
+
+        	
+        </div>
+        
+
+        
+    </div>
+    </div>
+  <script language="javascript" type="text/javascript">
+   function ds(id) {
+      window.location.href="/dataset/" + id;
+}
+
+</script>
+
+  <script>
+      function deleteDataset(id){
+       var url1 = "deleteDataset/"+ id;
+      window.location.href=url1;
+      }
+  </script>
+
+
+  </body>
+</html>

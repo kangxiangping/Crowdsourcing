@@ -1,0 +1,230 @@
+/* your styles go here */
+.div-allproject{
+	margin-top:20px;
+	margin-left:40px;
+	margin-bottom:20px;
+}
+
+.custom-page{
+	margin: 0 0 90px 400px !important;
+	display:flex !important;
+	list-style:none;
+}
+
+.blur2 {
+
+	filter: blur(9px);
+
+	-webkit-filter: blur(9px);  /* chrome, opera */
+
+	-ms-filter: blur(9px);
+
+	-moz-filter: blur(9px);
+
+	}
+
+.blur1 {
+
+	filter: blur(3px);
+
+	-webkit-filter: blur(3px);  /* chrome, opera */
+
+	-ms-filter: blur(3px);
+
+	-moz-filter: blur(3px);
+
+	}
+
+
+.createStep1{
+	padding-left: 40px;
+	padding-top: 30px;
+	background-color:white;
+}
+
+.createStep2{
+	border-bottom:#666 1px solid;
+	border-top:#666 1px solid;
+	border-left:#666 1px solid;
+	border-right:#666 1px solid;
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+.div-new-dataset{
+	background-color:pink;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.member{
+	padding:10px;
+	background-color:white;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	margin-right: 10px;
+}
+
+.member-icon{
+	float:right;
+	margin-left: auto;
+}
+
+.circle1{
+	width: 60px;
+	height: 60px;
+	background-color: #FF9933;
+	border-radius: 50%;
+	-moz-border-radius: 50%;      
+	-webkit-border-radius: 50%; 
+	text-align: center;
+
+
+}
+
+.pacman {
+    width: 0;
+    height: 0;
+    border-right: 30px solid transparent;
+    border-top: 30px solid #FF9933;
+    border-left: 30px solid #FF9933;
+    border-bottom: 30px solid #FF9933;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.pacman_grey {
+    width: 0;
+    height: 0;
+    border-right: 30px solid transparent;
+    border-top: 30px solid #BCBCCB;
+    border-left: 30px solid #BCBCCB;
+    border-bottom: 30px solid #BCBCCB;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.circle2{
+	width: 60px;
+	height: 60px;
+	background-color: #BCBCCB;     
+	border-radius: 50%;      
+	-moz-border-radius: 50%;      
+	-webkit-border-radius: 50%;
+	text-align: center;   
+}
+
+.circle-box{
+	float: left;
+	height: 65px;
+	display: flex;
+}
+
+.line{
+	width: 138px;
+	height: 3px;
+	border-bottom: solid #7E7E89 1px;
+	margin: 30px 10px 30px 10px;
+}
+
+.circle-title{
+	display:flex;
+	float:left;
+	height:80px;
+}
+
+.circle1 h5{
+	line-height: 60px;
+}
+
+.circle2 h5{
+	line-height: 60px;
+}
+
+.dataset-box{
+	width: 228px;
+	float: left;
+	background-color: white;
+	padding: 20px;
+	border-radius: 5px;
+	margin-right: 30px;
+	margin-bottom: 30px;
+	cursor:pointer;
+}
+.working-left{
+	float: left;	
+	background-color:white;	
+	height: 800px;
+	padding: 20px; 
+	width: 650px;
+	text-align: center;
+}
+
+.working-right{
+	float: right; 
+	height: 500px;
+	padding: 0;
+}
+
+.working-right-top{
+	padding: 40px 40px 20px 40px;
+	margin-bottom: 20px;
+	background-color:white; 
+	height: 340px;
+}
+
+.working-right-bottom{
+	background-color:white;
+	text-align: center; 
+	border-radius: 2px;
+}
+
+.my-btn-delete{
+	float: right;
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 25px;
+	height: 25px;
+	border-radius: 5px 5px 0 0;
+	cursor:pointer;
+}
+
+.data-box{
+	width: 150px; 
+	height: 170px; 
+	position: relative;
+	border-radius: 2px;
+	float: left;	
+	margin-right: 23px;
+	margin-bottom: 40px;
+}
+
+.oneline{
+	width: 150px; 
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.small-btn{
+	margin: 6px 0 0 10px; 
+	height: 30px; 
+	line-height: 16px; 
+	font-size: 13px;
+}
+
+.personal-div{
+	height: calc(2.25rem + 2px);
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 0;
+    padding: 0.375rem 0;
+    width: 470px;
+}

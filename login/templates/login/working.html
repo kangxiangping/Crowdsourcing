@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+{% load static %}
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SelfPaced Crowd</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{% static '/css/fontastic.css' %}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static '/css/style.default.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static '/css/custom.css' %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static '/img/favicon2.png' %}">
+    
+    <!-- JavaScript files-->
+    <script src="{% static  '/js/label.js' %}"></script>
+    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/vendor/popper.js/umd/popper.min.js' %}"> </script>
+    <script src="{% static '/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+    <script src="{% static '/vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static '/js/charts-home.js'%}"></script>
+    <!-- Main File-->
+    <script src="{% static '/js/front.js' %}"></script>
+   
+    
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+      <div class="headerpage"></div>
+	  <script type="text/javascript">
+        $(".headerpage").load("{% url 'login:header'%}");
+
+</script>
+      <div class="page-content d-flex align-items-stretch"> 
+
+        <div class="content-inner" style="margin: 20px 0 0px 120px;">
+        
+        <div style="background-color: white;  padding: 20px 20px 1px 20px; margin-bottom: 15px;">
+        	<h6 style="margin-right: 10px; float: left;" >{{index}}/{{taskCount}}</h6>
+	        <div class="progress" style="margin-bottom: 20px;">
+			  <div class="progress-bar bg-success" role="progressbar" style="width: {%  widthratio index taskCount 100 %}%;"></div>
+			</div>
+		</div>
+
+            {% if batch == -1 %}
+              <div class="col-lg-9 working-left">
+       	    <img  src="{% static imgUrl %}" width="600px">
+        </div>
+
+            {% else %}
+            {% if batch == 0%}
+            <div class="col-lg-9 working-left">
+       	    <img  src="{% static imgUrl %}" width="600px">
+        </div>
+
+            {% else %}
+            {% if batch == 1%}
+            <div class="col-lg-9 working-left blur1">
+       	    <img  src="{% static imgUrl %}" width="600px">
+        </div>
+            {% else %}
+            <div class="col-lg-9 working-left blur2">
+       	    <img  src="{% static imgUrl %}" width="600px">
+        </div>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+<!--        <div class="col-lg-9 working-left">-->
+<!--       	    <img id="img" src="{% static imgUrl %}" width="600px">-->
+<!--        </div>-->
+        
+        <div class="col-lg-3 working-right">
+
+	        <div class="working-right-top">
+	        	
+	        	<h5>-图片属性-</h5>
+	        	<span >{{question}}</span>
+                {% for tag in tags %}
+                <div class="form-group row">
+	                <div class="card-body no-padding"  style="margin-top: 7px;">
+	                  <div class="i-checks" >
+	                    <input type="radio" name="tag" value={{tag}} class="radio-template" style="margin-top:3px;">
+	                    <label style="margin-left:10px;" >{{tag}}</label>
+	                  </div>
+	                </div>
+                </div>
+                {% endfor %}
+                
+	        </div>
+	        
+	       	<div class="working-right-bottom">
+<!--	       		 <div class="btn btn-primary" style="margin:5px; width:200px" onClick="quit()">提交 </div>-->
+                {% if index != taskCount %}
+                <button class="btn btn-primary" style="margin:5px; width:200px"  id="btnOk1"  >下一任务 </button>
+
+                {% else %}
+                <button class="btn btn-primary" style="margin:5px; width:200px"  id="btnOk2"  >提交 </button>
+
+                {% endif %}
+<!--	       		 <div class="btn btn-primary" style="margin:5px; width:200px"  id="btnOk"  th:if="${taskCount!=index+1}">下一任务 </div>-->
+	       		 <div class="btn btn-primary" style="margin:5px; width:200px" onClick="javascript :history.go(-1);">上一任务 </div>
+	       		 <div class="btn btn-primary" style="margin:5px; width:200px" onClick="quit()">返回首页</div>
+	       	</div>
+
+        </div>	
+		</div>
+      </div>
+    </div>
+<!--    onClick="working({{projectId}},{{index}},{{taskId}})"-->
+<script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+  <script>
+      function working(projectId, index){
+      var url1 = "/project/working/" + projectId + "/"+index;
+
+      window.location.href=url1;
+      }
+      function quit(){
+      var url2 = "/";
+
+      window.location.href=url2;
+      }
+  </script>
+   <script>
+        $(function(){
+           $("#btnOk1").click(function(){
+           var val =  $('input[name="tag"]:checked').val();
+            $.ajax({
+                type:"POST",  //请求方式
+                url:"/project/getAnswer/",  //请求路径：页面/方法名字
+                dataType:"json",
+                data: JSON.stringify({answer: val, projectId: {{projectId}}, taskId: {{taskId}}, index: {{index}}}),
+                contentType:"application/json; charset=utf-8",
+                success:function(result){  //此方法成功执行后（保存记录，返回正确答案），如果回答正确则跳转到下一个页面，否则只是显示正确答案而不跳转。此处我们只需要返回一个正确答案
+<!--                   var newData = eval("("+result+")");-->
+                   if(result.msg=="right"){
+                   alert("回答正确(第一批次任务供测试使用)");
+                   var url1 = "/project/working/" + {{projectId}}  + "/"+{{index}};
+                   window.location.href=url1;
+                   }
+                   else{
+                   if(result.msg=="wrong"){
+                   alert("回答错误(第一批次任务供测试使用)" + "\n" + "正确答案: " + result.truth + "\n" + result.hint);
+                   }else{
+
+                   var url1 = "/project/working/" + {{projectId}}  + "/"+{{index}};
+                   window.location.href=url1;
+
+                   }
+
+                   }
+
+
+                },
+                error:function(obj, msg, e){   //异常
+                    alert("请选择答案");
+                }
+            });
+        });
+        });
+
+ $(function(){
+
+           $("#btnOk2").click(function(){
+
+           $("#btnOk2").attr("disabled", true);
+           alert("请稍等");
+           $("#btnOk2").css({'background-color' : 'gray'});
+            $("#btnOk2").css({'border' : '1px solid grey'});
+           var val =  $('input[name="tag"]:checked').val();
+            $.ajax({
+                type:"POST",  //请求方式
+                url:"/project/getAnswer/",  //请求路径：页面/方法名字
+                dataType:"json",
+                data: JSON.stringify({answer: val, projectId: {{projectId}}, taskId: {{taskId}}, index: {{index}}}),
+                contentType:"application/json; charset=utf-8",
+                success:function(result){  //成功
+<!--                   var newData = eval("("+result+")");-->
+                   if(result.msg=="right"){
+                   alert("回答正确(第一批次任务供测试使用)");
+                   var url2 = "/";
+                   window.location.href=url2;
+                   }
+                   else{
+                   if(result.msg=="wrong"){
+                   alert("回答错误(第一批次任务供测试使用)" + "\n" + "正确答案: " + result.truth + "\n" + result.hint);
+                   }
+                   else{
+                   alert("提交成功");
+                   var url2 = "/";
+                   window.location.href=url2;
+                   }
+
+                   }
+                },
+                error:function(obj, msg, e){   //异常
+                    alert("请选择答案");
+                }
+            });
+        });
+        });
+
+
+</script>
+
+    
+    
+  </body>
+</html>

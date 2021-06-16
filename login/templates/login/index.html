@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+{% load static %}
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SelfPaced Crowd</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{% static '/css/fontastic.css' %}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static '/css/style.default.css'%}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static '/css/custom.css' %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static '/img/favicon2.png' %}">
+    <!-- JavaScript files-->
+    <script src="{% static '/js/label.js' %}"></script>
+    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/vendor/popper.js/umd/popper.min.js' %}"> </script>
+    <script src="{% static '/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+    <script src="{% static '/vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static '/js/charts-home.js' %}"></script>
+    <!-- Main File-->
+    <script src="{% static '/js/front.js' %}"></script>
+
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+<!--      <header th:insert="login/header.html::my-header">-->
+<!--	  </header>-->
+	 <div class="headerpage"></div>
+        <script type="text/javascript">
+        $(".headerpage").load("{% url 'login:header'%}");
+
+</script>
+
+      <div class="page-content d-flex align-items-stretch"> 
+        <!-- Side Navbar -->
+        <nav class="side-navbar" >
+			<ul class="list-unstyled">
+				<li class="active"><a href="/"> <i class="icon-home"></i>全部项目  </a></li>
+				<li><a href="{% url 'login:collaborators'%}"> <i class="icon-grid"></i>成员管理 </a></li>
+				<li><a href="{% url 'dataset:datasets'%}"> <i class="fa fa-bar-chart"></i>数据中心 </a></li>
+				<li><a href="/export"> <i class="icon-padnote"></i>数据导出 </a></li>
+				<li><a href="{% url 'login:personal'%}"> <i class="icon-interface-windows"></i>个人中心 </a></li>
+			</ul>
+		</nav>
+		
+        <div class="content-inner">
+	        <header class="page-header">
+	          <div class="container-fluid" >
+	          	<a href="{%url 'project:step1' %}" class="btn btn-primary">新建众包项目</a>
+<!--	          	<a th:if="${user.haveTest == 0}" th:onclick="toWork([[${testProjectId}]]);" class="btn btn-warning" style="margin-left: 10px;">新手测试</a>-->
+	          </div>
+	        </header>
+	        
+	        <div class="div-allproject">
+	        	<h4>全部项目</h4>
+	        </div>
+	        
+	         <!-- Projects Section-->
+          <section class="projects no-padding-top">
+              {% for project in projects %}
+            <div class="container-fluid">
+              <!-- Project-->
+              <div class="project" >
+                <div class="row bg-white has-shadow">
+                  <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
+                    <div class="project-title d-flex align-items-center">
+                      <div class="image has-shadow"><img src="{% static project.imgUrl %}" style="width:50px;height:50px" class="img-fluid"></div>
+                      <div class="text">
+                        <h3 class="h4" >{{project.name}}</h3><small>每个任务 </small><small>{{project.point}}</small> <small>积分</small>
+                      </div>
+                    </div>
+                    <div class="project-date">
+                    <span  class="hidden-sm-down">截止时间：{{project.deadline|date:"Y-m-d"}}</span>
+                    </div>
+                      <div class="project-date">
+                    <span  class="hidden-sm-down">剩余预算：{{project.budget}} 积分</span>
+                    </div>
+                      <div class="project-date">
+                    <span  class="hidden-sm-down">参与人数：{{project.workerNum}} 人</span>
+                    </div>
+                  </div>
+                  <div class="right-col col-lg-6 d-flex align-items-center">
+                    <div class="time">
+                    	<i class="fa fa-clock-o"></i>
+                    	<span >{{project.finishedCount}} </span>
+                    	<span>/</span>
+                    	<span > {{project.taskCount}}</span>
+                    </div>
+                    <div class="project-progress">
+                      <div class="progress">
+                        <div role="progressbar" class="progress-bar bg-success" style="width: {%  widthratio project.finishedCount project.taskCount 100 %}%; height: 6px; " aria-valuenow="{{project.finishedCount}}" aria-valuemin="0" aria-valuemax="{{project.finishedCount}}" ></div>
+                      </div>
+                    </div>
+<!--                    <button class="btn btn-secondary" th:if="${project.haveFinished == true}" style="margin-left: 20px">完成</button>-->
+                   {% if project.creator_id == uid  %}
+
+                       <button class="btn btn-primary"  style="margin-left: 20px" onclick="deleteProject({{project.id}})">删除</button>
+                    {% if project.hasFinished == 0 %}
+                      <button class="btn btn-primary"  style="margin-left: 20px" onclick="finishProject({{project.id}})" >完成</button>
+
+                      {% else %}
+                      <button class="btn btn-primary" disabled="true" style="background-color: grey;margin-left: 20px;border:1px solid grey" onclick="finishProject({{project.id}})" >完成</button>
+                      {% endif %}
+                       {% elif project.hasFinished == 1 %}
+
+                        <button class="btn btn-primary"   type="button" disabled="true"  style="background-color: grey;margin-left: 20px;border:1px solid grey" onclick="labeling({{project.id}})" >标注</button>
+                     {% else %}
+                        <button class="btn btn-primary"   type="button"  style="margin-left: 20px" onclick="labeling({{project.id}})" >标注</button>
+                   {% endif %}
+<!--                    <button class="btn btn-primary"  id="label11" type="button" style="margin-left: 20px" onclick="labeling({{project.id}})" >标注</button>-->
+<!--                    <button class="btn btn-primary" if="${user.type == 1 || project.creator==user.id}" style="margin-left: 20px" onclick="deleteProject({{project.id}})">删除</button>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+              {% endfor %}
+           </section>
+
+            
+            <!-- 分页符 -->
+<!--            <div>-->
+<!--				<nav aria-label="Page navigation">-->
+<!--			    	<ul class="pagination custom-page">-->
+<!--					    <li th:if="${pageDTO.showFirstPage}" class="page-item">-->
+<!--					    	<a th:href="@{/?page=1}" aria-label="FirstPage" class="page-link">-->
+<!--					        	<span aria-hidden="true">&lt;&lt;</span>-->
+<!--					        </a>-->
+<!--					    </li>-->
+<!--					    <li th:if="${pageDTO.showPrevious}" class="page-item"> -->
+<!--					      <a th:href="@{/(page=${pageDTO.page-1})}" aria-label="Previous" class="page-link">-->
+<!--					        <span aria-hidden="true">&lt;</span>-->
+<!--					      </a>-->
+<!--					    </li>-->
+<!--					    <li th:each="page : ${pageDTO.pages}" th:class="'page-item ' + @{${pageDTO.page==page}?'active':''}">-->
+<!--					    	<a th:href="@{/(page=${page})}" th:text="${page}" class="page-link"></a>-->
+<!--					    </li>-->
+<!--					    <li th:if="${pageDTO.showNext}" class="page-item">-->
+<!--					    	<a th:href="@{/(page=${pageDTO.page+1})}" aria-label="Next" class="page-link">-->
+<!--					        	<span aria-hidden="true">&gt;</span>-->
+<!--					    	</a>-->
+<!--					    </li> -->
+<!--					    <li th:if="${pageDTO.showEndPage}" class="page-item">-->
+<!--					    	<a th:href="@{/(page=${pageDTO.totalPage})}" aria-label="EndPage" class="page-link">-->
+<!--					    		<span aria-hidden="true">&gt;&gt;</span>-->
+<!--					    	</a>-->
+<!--					    </li>-->
+<!--					</ul>-->
+<!--			  	 </nav>-->
+<!--			</div>-->
+			
+<!--	        <footer th:insert="footer::my-footer">-->
+<!--       		</footer>-->
+        </div>
+      </div>
+    </div>
+<script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    <script>
+     window.onload = function(){
+    {% if message %}
+
+                alert('{{ message }}');
+
+        {% endif %}} </script>
+  <script type="text/javascript">
+  function labeling(id){
+      var url1 = "/project/begin/" + id;
+      window.location.href=url1;
+     };
+ function deleteProject(id){
+  var url1 = "/project/delete/" + id;
+  window.location.href=url1;
+ };
+ function finishProject(id){
+  var url1 = "/project/finishProject/" + id;
+  window.location.href=url1;
+ };
+
+
+</script>
+
+  </body>
+</html>

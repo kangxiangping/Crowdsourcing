@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load static%}
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SelfPaced Crowd</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/bootstrap/css/bootstrap.min.css'%}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{%static '/vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{% static '/css/fontastic.css' %}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static '/css/style.default.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static '/css/custom.css' %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static '/img/favicon2.png' %}">
+    
+    <!-- JavaScript files-->
+    <script src="{% static '/js/label.js' %}"></script>
+    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/vendor/popper.js/umd/popper.min.js' %}"> </script>
+    <script src="{% static '/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+    <script src="{% static '/vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static '/js/charts-home.js' %}"></script>
+    <!-- Main File-->
+    <script src="{% static '/js/front.js' %}"></script>
+   
+    
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+      <div class="headerpage"></div>
+	  <script type="text/javascript">
+        $(".headerpage").load("{% url 'login:header'%}");
+</script>
+      <div class="page-content d-flex align-items-stretch"> 
+        <!-- Side Navbar -->
+        <nav class="side-navbar" th:fragment="navbar1">
+			<ul class="list-unstyled">
+				<li class="active"><a href="/"> <i class="icon-home"></i>全部项目  </a></li>
+				<li><a href="{% url 'login:collaborators'%}"> <i class="icon-grid"></i>成员管理 </a></li>
+				<li><a href="{% url 'dataset:datasets'%}"> <i class="fa fa-bar-chart"></i>数据中心 </a></li>
+				<li><a href="/export"> <i class="icon-padnote"></i>数据导出 </a></li>
+				<li><a href="{% url 'login:personal'%}"> <i class="icon-interface-windows"></i>个人中心 </a></li>
+			</ul>
+		</nav>
+        <div class="content-inner createStep1">
+        	<input type="hidden" th:value="${userPoint}" id="userPoint">
+        	<h3>新建众包项目</h3>
+        	<div style="margin-top:20px;margin-bottom:20px"><span>请按照顺序填写项目要求</span></div>
+			
+			<div style="display: grid;">
+				<div class="col-lg-8 circle-box">
+					<div class="pacman"><h5></h5></div>
+					<div class="line"></div>
+					<div class="pacman_grey"><h5></h5></div>
+					<div class="line"></div>
+					<div class="pacman_grey"><h5></h5></div>
+				</div>
+				<div class="circle-title">
+					<div>设置项目名称</div>
+					<div style="margin-left: 128px;">添加数据集</div>
+					<div style="margin-left: 132px;">设置答案选项</div>
+				</div>
+			</div>
+			
+			<form method="post" action="{% url 'project:step2'%}">
+			  <div class="form-group">
+			    <label for="formGroupExampleInput"><span style="color: red;">*</span>请添加项目名称</label>
+			    <input type="text" class="form-control" style="width:500px;"  name="name">
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="formGroupExampleInput2" >请添加项目描述</label>
+			    <textarea col="30" row="30" class="form-control" style="width:500px;" name="description"></textarea>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="formGroupExampleInput2"><span style="color: red;">*</span>单个任务的积分</label>
+			    <input type="number" class="form-control" style="width:500px;" name="point">
+			  </div>
+			  
+			   <div class="form-group">
+			    <label for="formGroupExampleInput2"><span style="color: red;">*</span>项目预算</label>
+			    <input type="number" class="form-control" style="width:500px;" name="budget">
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="formGroupExampleInput2"><span style="color: red;">*</span>项目截止日期</label>
+			    <input type="datetime-local" class="form-control" style="width:500px;" name="deadline">
+			  </div>
+
+				<button id="login" type="submit" class="btn btn-primary">下一步</button>
+<!--			  <a class="btn btn-primary" type="submit" style="color: white;">下一步</a>-->
+			  <a class="btn btn-secondary" href="#" onClick="javascript :history.go(-1);">返回</a>
+			</form>
+
+		</div>
+     
+        </div>
+      </div>
+    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+  <script type="text/javascript">
+  function labeling(id){
+      var url1 = "/project/begin/" + id;
+      window.location.href=url1;
+     };
+</script>
+    
+  </body>
+</html>

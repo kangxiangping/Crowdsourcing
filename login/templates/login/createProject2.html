@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+{% load static %}
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SelfPaced Crowd</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static '/vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="{% static '/css/fontastic.css' %}">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static '/css/style.default.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static '/css/custom.css' %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static '/img/favicon2.png' %}">
+    <script src="{% static '/js/label.js' %}"></script>
+      <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+      <div class="headerpage"></div>
+	  <script type="text/javascript">
+        $(".headerpage").load("{% url 'login:header'%}");
+</script>
+      <div class="page-content d-flex align-items-stretch"> 
+        <!-- Side Navbar -->
+        <nav class="side-navbar" th:fragment="navbar1">
+			<ul class="list-unstyled">
+				<li class="active"><a href="/"> <i class="icon-home"></i>全部项目  </a></li>
+				<li><a href="{% url 'login:collaborators'%}"> <i class="icon-grid"></i>成员管理 </a></li>
+				<li><a href="{% url 'dataset:datasets'%}"> <i class="fa fa-bar-chart"></i>数据中心 </a></li>
+				<li><a href="/export"> <i class="icon-padnote"></i>数据导出 </a></li>
+				<li><a href="{% url 'login:personal'%}"> <i class="icon-interface-windows"></i>个人中心 </a></li>
+			</ul>
+		</nav>
+		
+        <div class="content-inner createStep1">
+        	
+        	<h3>新建众包项目</h3>
+        	<div style="margin-top:20px;margin-bottom:20px"><span>请按照顺序填写项目要求</span></div>
+
+			<div style="display: grid;">
+				<div class="col-lg-8 circle-box">
+					<div class="circle1"><h5></h5></div>
+					<div class="line"></div>
+					<div class="pacman"><h5></h5></div>
+					<div class="line"></div>
+					<div class="pacman_grey"><h5></h5></div>
+				</div>
+				<div class="circle-title">
+					<div>设置项目名称</div>
+					<div style="margin-left: 128px;">添加数据集</div>
+					<div style="margin-left: 132px;">设置答案选项</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-4">
+                  <div class="checklist card">
+                    <div class="card-close">
+                      <div class="dropdown">
+                        <button type="button" id="closeCard5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                        <div aria-labelledby="closeCard5" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
+                      </div>
+                    </div>
+                    <div class="card-header d-flex align-items-center">           
+                      <h2 class="h3">选择数据集 </h2>
+                    </div>
+                    <div class="card-body no-padding">
+                    
+                    <form method="post" action="/project/step3/">
+                        {%for dataset in datasets%}
+                    <div class="item d-flex" >
+                        <input type="radio" id="input-1" name="selectedDataset" class="radio-template" value={{dataset.id}} style="margin-top: 3px;">
+                        <label for="input-1" >{{dataset.name}}</label>
+                    </div>
+                        {% endfor %}
+                    
+                    <div style="margin:20px 0 20px 90px;">
+                        <button id="login"  class="btn btn-primary" onclick="test()">下一步</button>
+<!--		              <a class="btn btn-primary" th:onClick="createProjectStep2()" style="color: white;">下一步</a>-->
+					  <a class="btn btn-secondary" href="#" onClick="javascript :history.go(-1);">返回</a>
+		
+	             	</div>
+                    
+                    </form>
+                     
+                    </div>
+                  </div>
+                </div>  
+                
+                 
+              
+              	
+             
+		</div>
+          
+        </div>
+      </div>
+    <script>
+    function test(){
+        var f = document.getElementsByTagName("form")[0];
+        f.action=f.action+ {{project_id}} +"/";
+    }
+</script>
+    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    <!-- JavaScript files-->
+    <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static '/vendor/popper.js/umd/popper.min.js' %}"> </script>
+    <script src="{% static '/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+    <script src="{% static '/vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static '/vendor/jquery-validation/jquery.validate.min.js' %}"></script>
+    <script src="{% static '/js/charts-home.js' %}"></script>
+    <!-- Main File-->
+    <script src="{% static '/js/front.js' %}"></script>
+  </body>
+</html>
+			
+
