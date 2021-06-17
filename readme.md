@@ -38,7 +38,11 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-以上两条命令是用来生成数据库中的表，生成完毕后执行如下命令启动Django服务器
+以上两条命令是用来生成数据库中的表，项目中提取图片特征使用的是VGG-19，所以需要下载保存模型参数的npy文件并放入至项目的 static/data文件夹中，链接如下：
+
+[VGG-19.npy](https://mega.nz/#!xZ8glS6J!MAnE91ND_WyfZ_8mvkuSa2YcA7q-1ehfSm-Q1fxOvvs)
+
+下载完毕后执行如下命令启动Django服务器
 
 ```python
 python manage.py runserver
